@@ -7,11 +7,32 @@
     <script src="aframe-master.js"></script>
   </head>
   <body>
-    <a-scene vr-mode-ui="enabled: true">
+    <a-scene embedded>
+      <!-- 360° Background Image -->
       <a-sky src="vr-image.jpg" rotation="0 -130 0"></a-sky>
 
-      <a-text font="kelsonsans" value="Puy de Sancy, France" width="6" position="-2.5 0.25 -1.5"
-              rotation="0 15 0"></a-text>
+      <!-- Text Label -->
+      <a-text font="kelsonsans" value="Puy de Sancy, France" width="6" position="-2.5 0.25 -1.5" rotation="0 15 0"></a-text>
+
+      <!-- Camera for VR Interaction -->
+      <a-camera look-controls>
+        <a-cursor></a-cursor>
+      </a-camera>
     </a-scene>
+
+    <!-- Fullscreen VR Button -->
+    <button id="enter-vr" style="position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 999;">Enter VR</button>
+
+    <script>
+      const vrButton = document.getElementById('enter-vr');
+      vrButton.addEventListener('click', () => {
+        const scene = document.querySelector('a-scene');
+        if (scene && scene.enterVR) {
+          scene.enterVR();
+        } else {
+          alert('VR mode not supported on this device.');
+        }
+      });
+    </script>
   </body>
 </html>
